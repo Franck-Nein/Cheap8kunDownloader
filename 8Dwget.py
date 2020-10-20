@@ -23,5 +23,5 @@ with open('urls.txt', 'w') as f:
   link = (link.get('href'))
   if old != link: print('https:'+link)
   old = link
-os.system("wget -nc --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 -i urls.txt -P 'Downloads" + title.string + ' id=' + idnumber['id'] + "/'" )
+os.system("wget -nc --retry-on-http-error=502 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 -i urls.txt -P 'Downloads" + title.string + ' id=' + idnumber['id'] + "/'" )
 

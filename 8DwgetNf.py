@@ -19,7 +19,7 @@ if not os.path.exists('Downloads/' + title.string + ' id=' + idnumber['id']):
  os.makedirs('Downloads/' + title.string + ' id=' + idnumber['id'])
 for link in urls:
  link = (link.get('href'))
- if old != link: os.system ("wget -nc --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 " +'https:'+link+ " -P 'Downloads" + title.string + ' id=' + idnumber['id'] + "/'" )
+ if old != link: os.system ("wget -nc --retry-on-http-error=502 --retry-connrefused --waitretry=1 --read-timeout=20 --timeout=15 -t 0 " +'https:'+link+ " -P 'Downloads" + title.string + ' id=' + idnumber['id'] + "/'" )
  old = link
  
 
