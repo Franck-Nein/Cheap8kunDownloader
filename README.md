@@ -9,5 +9,8 @@ Download media from 8kun.top threads
 
 TODO:
 
-Merge the 3 if I learn how to do options in python
-Learn to do parallel downloads
+Merge the 3 if I learn how to do options in python.
+
+Learn to do parallel downloads.
+
+Learn markdown.
