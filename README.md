@@ -6,6 +6,8 @@ Download media from 8kun.top threads
 8DwgetNf.py uses wget to download the files but doenst need the urls.txt(slower and cant stop it)
 
 8Durllib.py uses urllib to download the files(slower than wget but only uses python)
+
 TODO:
+
 Merge the 3 if I learn how to do options in python
 Learn to do parallel downloads
