@@ -17,6 +17,13 @@ print(idnumber['id'])
 print(title.string)
 if not os.path.exists('Downloads/' + title.string + ' id=' + idnumber['id']):
  os.makedirs('Downloads/' + title.string + ' id=' + idnumber['id'])
+
+#txt = "one one was a race horse, two two was one too."
+
+#x = txt.replace("one", "three")
+
+#print(x) 
+
 for link in urls:
  link = (link.get('href'))
  if old != link:
@@ -27,9 +34,14 @@ for link in urls:
   if not os.path.exists(path):
    print('Downloading ' + filename)
    try:
-    urllib.request.urlretrieve(fulllink, path)
+    urllib.request.urlretrieve('fulllink', path)
    except:
-    print('404 :(')
+    print('Failed, trying onion')
+    try:
+     olink = fulllink.replace("https://media.8kun.top", "http://media.jthnx5wyvjvzsxtu.onion.sh")
+     urllib.request.urlretrieve(olink, path)
+    except:
+     print('404 :(')
   else:
    print('Not downloading ' + filename)
 
