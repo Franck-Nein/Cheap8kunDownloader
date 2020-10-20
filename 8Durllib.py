@@ -4,25 +4,32 @@ import re
 import sys
 import urllib, os
 import urllib.request
+old = 'a'
 myurl = input("Enter url:")
 page = requests.get(myurl)
 soup = BeautifulSoup(page.content, 'html.parser')
 link = []
-asd = soup.select("[href^='//media.8kun.top/file_store/']")
+urls = soup.select("[href^='//media.8kun.top/']")
+#urls = soup.select("[href^='//media.jthnx5wyvjvzsxtu.onion.pet/file_store/']")
 title = soup.find('title')
 idnumber = soup.find("a", {"class": "post_anchor"})
 print(idnumber['id'])
 print(title.string)
-idnumber = soup.find("a", {"class": "post_anchor"})
 if not os.path.exists('Downloads/' + title.string + ' id=' + idnumber['id']):
-    os.makedirs('Downloads/' + title.string + ' id=' + idnumber['id'])
-for link in asd:
+ os.makedirs('Downloads/' + title.string + ' id=' + idnumber['id'])
+for link in urls:
  link = (link.get('href'))
- filename = link.split('/')[-1].split('#')[0].split('?')[0]
- path = 'Downloads/' + title.string + ' id=' + idnumber['id'] + '/' + filename
- print(path)
- print(filename)
- fulllink = ('https:'+link)
- print(fulllink)
- urllib.request.urlretrieve(fulllink, path)
+ if old != link:
+  old = link
+  filename = link.split('/')[-1].split('#')[0].split('?')[0]
+  path = 'Downloads/' + title.string + ' id=' + idnumber['id'] + '/' + filename
+  fulllink = ('https:'+link)
+  if not os.path.exists(path):
+   print('Downloading ' + filename)
+   try:
+    urllib.request.urlretrieve(fulllink, path)
+   except:
+    print('404 :(')
+  else:
+   print('Not downloading ' + filename)
 
