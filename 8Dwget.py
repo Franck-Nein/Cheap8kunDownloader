@@ -1,9 +1,7 @@
 import requests
 from bs4 import BeautifulSoup
-import re
 import sys
 import urllib, os
-import urllib.request
 old = 'a'
 myurl = input("Enter url:")
 page = requests.get(myurl)
