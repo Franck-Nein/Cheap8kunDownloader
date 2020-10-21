@@ -5,12 +5,12 @@ import sys
 import urllib, os
 import urllib.request
 old = 'a'
+retries = 3
 myurl = input("Enter url:")
 page = requests.get(myurl)
 soup = BeautifulSoup(page.content, 'html.parser')
 link = []
 urls = soup.select("[href^='//media.8kun.top/']")
-#urls = soup.select("[href^='//media.jthnx5wyvjvzsxtu.onion.pet/file_store/']")
 title = soup.find('title')
 idnumber = soup.find("a", {"class": "post_anchor"})
 print(idnumber['id'])
@@ -26,15 +26,24 @@ for link in urls:
   fulllink = ('https:'+link)
   if not os.path.exists(path):
    print('Downloading ' + filename)
-   try:
-    urllib.request.urlretrieve(fulllink, path)
-   except:
-    print('Failed, trying onion')
+   while retries > 0 :
     try:
-     olink = fulllink.replace("https://media.8kun.top", "http://media.jthnx5wyvjvzsxtu.onion.sh")
-     urllib.request.urlretrieve(olink, path)
+     urllib.request.urlretrieve(fulllink, path)
+     retries = 3
     except:
-     print('404 :(')
+     print("Failed, retry " + str(retries) + '/3 remaining')
+     retries -= 1
+     if retries == -1:
+      print('Failed, trying onion')
+      olink = fulllink.replace("https://media.8kun.top", "http://media.jthnx5wyvjvzsxtu.onion.sh")
+      urllib.request.urlretrieve(olink, path)
+      print('404 :(')
+      break
+     continue
+    else:
+     retries = 3
+     break
+   retries = 3
   else:
    print('Not downloading ' + filename)
 
